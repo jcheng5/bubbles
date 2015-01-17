@@ -1,1 +1,5 @@
 ^\.travis\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.bowerrc$
+\.bower\.json
