@@ -16,11 +16,11 @@
 #' @import htmlwidgets
 #'   
 #' @export
-bubbles <- function(value, label, tooltip = NULL, color = NULL,
+bubbles <- function(value, label, tooltip = "", color = "#EEEEEE",
   width = NULL, height = NULL) {
 
   # forward options using x
-  x = list(
+  x = data.frame(
     value = value,
     label = label,
     tooltip = tooltip,
