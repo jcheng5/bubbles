@@ -3,3 +3,7 @@ dependencies:
   version: 3.5.3
   src: htmlwidgets/lib/d3
   script: d3.js
+- name: bubbles-css
+  version: 1.0.0
+  src: htmlwidgets/lib/bubbles-css
+  stylesheet: bubbles.css

@@ -33,7 +33,11 @@ bubbles <- function(value, label, tooltip = "", color = "#EEEEEE",
     x,
     width = width,
     height = height,
-    package = 'bubbles'
+    package = 'bubbles',
+    sizingPolicy = sizingPolicy(
+      defaultWidth = 600,
+      defaultHeight = 600
+    )
   )
 }
 

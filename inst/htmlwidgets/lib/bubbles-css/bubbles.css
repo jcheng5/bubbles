@@ -1,0 +1,8 @@
+.bubbles text {
+  text-anchor: middle;
+  font-family: Helvetica;
+  font-size: 10px;
+  font-weight: bold;
+  fill: white;
+  text-shadow: 0 0 2px black;
+}

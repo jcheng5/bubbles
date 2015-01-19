@@ -27,8 +27,15 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
+    instance.lastValue = x;
+
     var svg = instance.svg;
     var bubble = instance.bubble;
+    
+    bubble = bubble.size([el.offsetWidth, el.offsetHeight]);
+
+    svg.attr("width", el.offsetWidth);
+    svg.attr("height", el.offsetHeight);
 
     var df = HTMLWidgets.dataframeToD3(x);
 
@@ -52,7 +59,10 @@ HTMLWidgets.widget({
   },
 
   resize: function(el, width, height, instance) {
-
+    console.log("Resize called");
+    if (instance.lastValue) {
+      this.renderValue(el, instance.lastValue, instance);
+    }
   }
 
 });
