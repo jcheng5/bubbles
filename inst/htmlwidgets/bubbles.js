@@ -3,6 +3,8 @@ HTMLWidgets.widget({
   name: 'bubbles',
 
   type: 'output',
+  
+  renderOnNullValue: true,
 
   initialize: function(el, width, height) {
 
@@ -45,29 +47,39 @@ HTMLWidgets.widget({
     var node = svg.selectAll(".node")
         .data(bubble.nodes({children: df, color: "transparent"}));
 
-    // Create new nodes
+    // Create new nodes, and set their starting state so they look
+    // good when they transition to their new state
     var newNode = node.enter()
-        .append("g").attr("class", "node");
+        .append("g").attr("class", "node")
+        .style("opacity", 0)
+        .attr("transform", function(d) {
+          return "translate(" + width/2 + "," + height/2 + ")";
+        });
+
     newNode.append("title");
-    newNode.append("circle");
+    newNode.append("circle")
+        .style("fill", "#FFFFFF");
     newNode.append("text")
         .attr("dy", ".3em")
         .style("text-anchor", "middle");
 
     // Remove old nodes
-    node.exit()
-        .remove();
+    node.exit().transition()
+        .remove()
+        .style("opacity", 0);
 
     // Update all new and remaining nodes
 
-    node.attr("transform", function(d) {
+    node.transition()
+        .style("opacity", 1)
+        .attr("transform", function(d) {
           return "translate(" + d.x + "," + d.y + ")";
         });
 
     node.select("title")
         .text(function(d) { return d.tooltip; });
 
-    node.select("circle")
+    node.select("circle").transition()
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return d.color; });
 
