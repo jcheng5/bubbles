@@ -32,4 +32,7 @@ bubbles.
 
 Creates a bubble chart.
 }
+\examples{
+bubbles(runif(10), LETTERS[1:10], color = rainbow(10, alpha = NULL))
+}
 

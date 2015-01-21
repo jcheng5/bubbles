@@ -12,6 +12,9 @@
 #' @return A widget object that can be printed at the console, outputted as part
 #'   of an R Markdown document, or used in a Shiny app with
 #'   \code{\link{renderBubbles}}.
+#'
+#' @examples
+#' bubbles(runif(10), LETTERS[1:10], color = rainbow(10, alpha = NULL))
 #'   
 #' @import htmlwidgets
 #'   
