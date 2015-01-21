@@ -5,7 +5,7 @@
 \alias{renderBubbles}
 \title{Bubble chart functions for Shiny}
 \usage{
-bubblesOutput(outputId, width = "100\%", height = "600px")
+bubblesOutput(outputId, width = "600px", height = "600px")
 
 renderBubbles(expr, env = parent.frame(), quoted = FALSE)
 }

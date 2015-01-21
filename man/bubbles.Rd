@@ -6,7 +6,7 @@
 \alias{bubbles-package}
 \title{bubbles.}
 \usage{
-bubbles(value, label, tooltip = NULL, color = NULL, width = NULL,
+bubbles(value, label, tooltip = "", color = "#EEEEEE", width = NULL,
   height = NULL)
 }
 \arguments{

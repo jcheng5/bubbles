@@ -33,7 +33,11 @@ bubbles <- function(value, label, tooltip = "", color = "#EEEEEE",
     x,
     width = width,
     height = height,
-    package = 'bubbles'
+    package = 'bubbles',
+    sizingPolicy = sizingPolicy(
+      defaultWidth = 600,
+      defaultHeight = 600
+    )
   )
 }
 
@@ -47,7 +51,7 @@ bubbles <- function(value, label, tooltip = "", color = "#EEEEEE",
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})?
 #'   
 #' @export
-bubblesOutput <- function(outputId, width = '100%', height = '600px'){
+bubblesOutput <- function(outputId, width = '600px', height = '600px'){
   shinyWidgetOutput(outputId, 'bubbles', width, height, package = 'bubbles')
 }
 

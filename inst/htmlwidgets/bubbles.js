@@ -8,18 +8,13 @@ HTMLWidgets.widget({
 
     var bubble = d3.layout.pack()
         .sort(null)
-        .size([width, height])
         .padding(1.5);
     
     var svg = d3.select(el).append("svg")
-        .attr("width", width)
-        .attr("height", height)
         .attr("class", "bubble");
         
     return {
       svg: svg,
-      width: width,
-      height: height,
       bubble: bubble
     }
 
@@ -27,8 +22,22 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
+    // Store the current value so we can easily call renderValue
+    // from the resize method below, which doesn't give us an x
+    // value
+    instance.lastValue = x;
+
+    // Retrieve our svg and bubble objects that were created in
+    // the initialize method above
     var svg = instance.svg;
     var bubble = instance.bubble;
+    
+    // Resize our svg element and bubble layout according to the
+    // size of the actual DOM element
+    var width = el.offsetWidth;
+    var height = el.offsetHeight;
+    svg.attr("width", width).attr("height", height);
+    bubble.size([width, height]);
 
     var df = HTMLWidgets.dataframeToD3(x);
 
@@ -52,7 +61,10 @@ HTMLWidgets.widget({
   },
 
   resize: function(el, width, height, instance) {
-
+    // Re-render the previous value, if any
+    if (instance.lastValue) {
+      this.renderValue(el, instance.lastValue, instance);
+    }
   }
 
 });
