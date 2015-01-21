@@ -41,22 +41,37 @@ HTMLWidgets.widget({
 
     var df = HTMLWidgets.dataframeToD3(x);
 
+    // Set up our main selection
     var node = svg.selectAll(".node")
-        .data(bubble.nodes({children: df, color: "transparent"}))
-      .enter().append("g")
-        .attr("class", "node")
-        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  
-    node.append("title")
+        .data(bubble.nodes({children: df, color: "transparent"}));
+
+    // Create new nodes
+    var newNode = node.enter()
+        .append("g").attr("class", "node");
+    newNode.append("title");
+    newNode.append("circle");
+    newNode.append("text")
+        .attr("dy", ".3em")
+        .style("text-anchor", "middle");
+
+    // Remove old nodes
+    node.exit()
+        .remove();
+
+    // Update all new and remaining nodes
+
+    node.attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+
+    node.select("title")
         .text(function(d) { return d.tooltip; });
-  
-    node.append("circle")
+
+    node.select("circle")
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return d.color; });
-  
-    node.append("text")
-        .attr("dy", ".3em")
-        .style("text-anchor", "middle")
+
+    node.select("text")
         .text(function(d) { return d.label; });
   },
 
