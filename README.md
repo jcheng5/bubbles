@@ -22,4 +22,4 @@ bubbles(value = runif(26), label = LETTERS,
 
 ![Sample output](sample.png)
 
-For use with Shiny, see `?bubbles::renderBubbles`.
+See `?bubbles::bubbles` for more options. For use with Shiny, see `?bubbles::renderBubbles`.
