@@ -2,17 +2,22 @@
 #' 
 #' Creates a bubble chart.
 #' 
-#' @param value Numeric vector of values, used for sizing bubbles
+#' @param value Numeric vector of values, used for sizing bubbles. The value 
+#'   will be proportional to the radius, not the area; for area, call 
+#'   \code{\link{sqrt}} on the value.
 #' @param label Character vector of textual labels to use on bubbles
 #' @param tooltip Character vector of tooltip values, to be shown on hover
-#' @param color Character vector of color values, in \code{"#RRGGBB"} format
+#' @param color Character vector of bubble color values, in \code{"#RRGGBB"}
+#'   format; can be length 1 or length of \code{value}
+#' @param textColor Character vector of text color values, in \code{"#RRGGBB"}
+#'   format; can be length 1 or length of \code{value}
 #' @param width The width of the widget, or \code{NULL} for default.
 #' @param height The height of the widget, or \code{NULL} for default.
 #'   
 #' @return A widget object that can be printed at the console, outputted as part
-#'   of an R Markdown document, or used in a Shiny app with
+#'   of an R Markdown document, or used in a Shiny app with 
 #'   \code{\link{renderBubbles}}.
-#'
+#'   
 #' @examples
 #' bubbles(runif(10), LETTERS[1:10], color = rainbow(10, alpha = NULL))
 #'   
@@ -20,14 +25,15 @@
 #'   
 #' @export
 bubbles <- function(value, label, tooltip = "", color = "#EEEEEE",
-  width = NULL, height = NULL) {
+  textColor = "#333333", width = NULL, height = NULL) {
 
   # forward options using x
   x = data.frame(
     value = value,
     label = label,
     tooltip = tooltip,
-    color = color
+    color = color,
+    textColor = textColor
   )
 
   # create widget

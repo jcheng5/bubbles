@@ -84,7 +84,8 @@ HTMLWidgets.widget({
         .style("fill", function(d) { return d.color; });
 
     node.select("text")
-        .text(function(d) { return d.label; });
+        .text(function(d) { return d.label; })
+        .style("fill", function(d) { return d.textColor; });
   },
 
   resize: function(el, width, height, instance) {

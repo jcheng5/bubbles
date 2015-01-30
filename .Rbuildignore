@@ -3,3 +3,5 @@
 ^\.Rproj\.user$
 ^\.bowerrc$
 \.bower\.json
+^README.md$
+^sample.png$
