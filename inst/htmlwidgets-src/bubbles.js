@@ -34,23 +34,23 @@ HTMLWidgets.widget({
     
     var df = HTMLWidgets.dataframeToD3(x);
 
-    var svg = React.createElement("svg", {className: "bubble", width: width, height: height}, 
-      
+    var svg = <svg className="bubble" width={width} height={height}>
+      {
         bubble.nodes({children: df, color: "transparent"}).map(function(d, i) {
-          return React.createElement("g", {key: i, 
-                    className: "node", 
-                    style: {opacity: 1, transition: "transform 1s linear"}, 
-                    transform: "translate(" + d.x + "," + d.y + ")"}, 
-            React.createElement("title", null, d.tooltip), 
-            React.createElement("circle", {r: d.r, fill: d.color}), 
-            React.createElement("text", {dy: ".3em", style: {textAnchor: "middle"}, 
-                  fill: d.textColor}, 
-              d.label
-            )
-          );
+          return <g key={i}
+                    className="node"
+                    style={{opacity: 1, transition: "transform 1s linear"}}
+                    transform={"translate(" + d.x + "," + d.y + ")"}>
+            <title>{d.tooltip}</title>
+            <circle r={d.r} fill={d.color}></circle>
+            <text dy=".3em" style={{textAnchor: "middle"}}
+                  fill={d.textColor}>
+              {d.label}
+            </text>
+          </g>;
         })
-      
-    );
+      }
+    </svg>;
 
     React.render(svg, el);
   },

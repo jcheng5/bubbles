@@ -5,3 +5,6 @@
 \.bower\.json
 ^README.md$
 ^sample.png$
+^inst/htmlwidgets-src$
+.module-cache
+^build.sh$
