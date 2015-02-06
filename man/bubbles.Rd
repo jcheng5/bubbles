@@ -6,7 +6,7 @@
 \alias{bubbles-package}
 \title{bubbles.}
 \usage{
-bubbles(value, label, tooltip = "", color = "#EEEEEE",
+bubbles(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
   textColor = "#333333", width = NULL, height = NULL)
 }
 \arguments{
@@ -15,6 +15,13 @@ will be proportional to the radius, not the area; for area, call
 \code{\link{sqrt}} on the value.}
 
 \item{label}{Character vector of textual labels to use on bubbles}
+
+\item{key}{Values that will uniquely identify a bubble across runs. This
+doesn't matter for static bubble charts, but if a bubble chart receives
+updates (i.e. in a Shiny app) then d3.js will use the key to know which
+bubbles in the "before" state correspond with which bubbles in the
+"after" state, and perform smooth transitions. If \code{NULL}, then the
+key will effectively be the row number.}
 
 \item{tooltip}{Character vector of tooltip values, to be shown on hover}
 
