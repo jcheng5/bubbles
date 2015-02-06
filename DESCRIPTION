@@ -1,6 +1,6 @@
 Package: bubbles
 Title: d3 Bubble Chart htmlwidget
-Version: 0.1
+Version: 0.2
 Authors@R: c(person("Joe", "Cheng", role = c("cre", "aut"), email = "joe@rstudio.com"),
     person("Mike", "Bostock", role = "aut"),
     person("Jeff", "Heer", role = "aut"))
