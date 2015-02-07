@@ -46,7 +46,7 @@ HTMLWidgets.widget({
     // Set up our main selection
     var node = svg.selectAll(".node")
         .data(bubble.nodes({children: df, color: "transparent"}),
-          !x.key ? null : function(d) { return d.key; }
+          (!x || !x.key) ? null : function(d) { return d.key; }
         );
 
     // Create new nodes, and set their starting state so they look
