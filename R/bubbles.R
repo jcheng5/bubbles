@@ -31,7 +31,7 @@
 #'   
 #' @export
 bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
-  textColor = "#333333", width = NULL, height = NULL) {
+  textColor = "#333333", width = NULL, height = NULL, group = NULL) {
 
   # forward options using x
   x = data.frame(
@@ -48,14 +48,15 @@ bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
   # create widget
   htmlwidgets::createWidget(
     name = 'bubbles',
-    x,
+    list(data = x, group = group),
     width = width,
     height = height,
     package = 'bubbles',
     sizingPolicy = sizingPolicy(
       defaultWidth = 600,
       defaultHeight = 600
-    )
+    ),
+    dependencies = list(crosstalk::dependency)
   )
 }
 

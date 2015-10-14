@@ -14,6 +14,8 @@ HTMLWidgets.widget({
     
     var svg = d3.select(el).append("svg")
         .attr("class", "bubble");
+
+    el.__crosstalkId = Math.random() + "";
         
     return {
       svg: svg,
@@ -28,6 +30,12 @@ HTMLWidgets.widget({
     // from the resize method below, which doesn't give us an x
     // value
     instance.lastValue = x;
+
+    var group = null;
+    if (x.group) {
+      group = crosstalk.group(x.group);
+    }
+	x = x.data;
 
     // Retrieve our svg and bubble objects that were created in
     // the initialize method above
@@ -65,6 +73,33 @@ HTMLWidgets.widget({
         .attr("dy", ".3em")
         .style("text-anchor", "middle");
 
+    if (group) {
+      newNode.on("click", function(d) {
+        var sel = group.selection();
+        if (!sel || sel.ownerId !== el.__crosstalkId) {
+          group.selection({
+            observations: [d.key],
+            ownerId: el.__crosstalkId
+          });
+        } else {
+          var obs = group.selection().observations;
+          if (obs.indexOf(d.key) >= 0) {
+            obs.splice(obs.indexOf(d.key), 1);
+          } else {
+            obs.push(d.key);
+          }
+          group.selection({
+            observations: obs,
+            ownerId: el.__crosstalkId
+          });
+        }
+      });
+
+      group.on("selection", function() {
+        updateForSelection();
+      });
+    }
+
     // Remove old nodes
     node.exit().transition()
         .remove()
@@ -72,7 +107,8 @@ HTMLWidgets.widget({
 
     // Update all new and remaining nodes
 
-    node.transition()
+    var nodeT = node.transition();
+    nodeT
         .style("opacity", 1)
         .attr("transform", function(d) {
           return "translate(" + d.x + "," + d.y + ")";
@@ -81,13 +117,26 @@ HTMLWidgets.widget({
     node.select("title")
         .text(function(d) { return d.tooltip; });
 
-    node.select("circle").transition()
+    var circle = node.select("circle");
+    circle.transition()
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return d.color; });
 
     node.select("text")
         .text(function(d) { return d.label; })
         .style("fill", function(d) { return d.textColor; });
+
+    function updateForSelection(initial) {
+      var target = initial ? nodeT : node.transition();
+      target.style("opacity", function(d) {
+        if (!group || !group.selection() || !group.selection().observations.length || group.selection().observations.indexOf(d.key) >= 0) {
+          return 1;
+        } else {
+          return 0.3;
+        }
+      });
+    }
+    updateForSelection(true);
   },
 
   resize: function(el, width, height, instance) {
