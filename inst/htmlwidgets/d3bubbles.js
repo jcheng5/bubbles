@@ -130,13 +130,6 @@ console.log("opts\n",opts)
                 return d.tooltip;
             });
 
-        // var minSize = 50;
-        // var maxSize = 1000;
-        // var rscale2 = d3.scale.linear()
-        //                 .domain([d3.min(bubbleData.shift(),function(d){return d.r}), 
-        //                 d3.max(bubbleData.shift(),function(d){return d.r})])
-        // .range([minSize, maxSize]);
-
         node.select("circle").transition()
             .attr("r", function(d) {
                 return d.r;
@@ -237,9 +230,9 @@ function d3TextWrap(text, width, paddingRightLeft, paddingTopBottom) {
 
     resize: function(el, width, height, instance) {
         // Re-render the previous value, if any
-        if (instance.lastValue) {
-            this.renderValue(el, instance.lastValue, instance);
-        }
+        // if (instance.lastValue) {
+        //     this.renderValue(el, instance.lastValue, instance);
+        // }
     }
 
 });

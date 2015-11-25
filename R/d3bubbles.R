@@ -7,12 +7,13 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
   
   labelCol <- labelCol %||% names(data)[1]
   valueCol <- valueCol %||% names(data)[2]
+  colorCol <- colorCol %||% valueCol
   
   defaultOpts <-  list(
     padding = 3,
     textSplitWidth = 80,
-    palette = "Set1",
-    color = "#B7D1DF",
+    palette = "Purples",
+    fixedColor = "#B7D1DF",
     textColor = "#444444",
     minSizeFactor = NA,
     maxSizeFactor = NA
@@ -21,15 +22,16 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
   settings <- mergeOptions(opts,defaultOpts)
   
   textColor <- settings$textColor
-  color <- settings$color
-  if(!is.null(colorCol)){
+
+  if(is.null(opts$fixedColor)){
     v <- data[,colorCol]
-    if(class(v) %in% c("factor","string"))
+    color <- NULL
+    if(class(v) %in% c("factor","character"))
       color <- catColor(v,palette = settings$palette)
     if(class(v) %in% c("numeric","integer"))
       color <- numColor(v,palette = settings$palette)
   }else{
-    color <- settings$color
+    color <- settings$fixedColor
   }
   
   

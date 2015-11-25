@@ -19,3 +19,4 @@ devtools::install_github("jpmarindiaz/d3bubbles")
 ## Todos
 
 Add bubble sort option
+Add tooltip
