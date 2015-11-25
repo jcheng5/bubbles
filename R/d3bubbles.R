@@ -13,11 +13,15 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
     textSplitWidth = 80,
     palette = "Set1",
     color = "#B7D1DF",
-    textColor = "#444444"
+    textColor = "#444444",
+    minSizeFactor = NA,
+    maxSizeFactor = NA
   )
   
   settings <- mergeOptions(opts,defaultOpts)
   
+  textColor <- settings$textColor
+  color <- settings$color
   if(!is.null(colorCol)){
     v <- data[,colorCol]
     if(class(v) %in% c("factor","string"))
@@ -28,7 +32,6 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
     color <- settings$color
   }
   
-  textColor <- settings$textColor
   
   d = data.frame(
     value = data[,valueCol],

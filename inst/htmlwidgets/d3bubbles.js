@@ -49,12 +49,50 @@ console.log("opts\n",opts)
         svg.attr("width", width).attr("height", height);
         bubble.size([width, height]);
         bubble.padding(opts.padding);
+        
+        
+
+
+        var minSize = opts.minSizeFactor*height/100;
+        var maxSize = opts.maxSizeFactor*height/100;
+        console.log(minSize,maxSize)
+        if(minSize && maxSize){
+            console.log("SCALING")
+            var scale = d3.scale.sqrt()
+                .domain([d3.min(x.d.value), d3.max(x.d.value)])
+                .range([minSize/2, maxSize/2]);
+            bubble.radius(function(r){
+               return scale(r)
+            });            
+        }
+
+
+
+        
+
+        // console.log("VAL1",x.d.value)
+        // x.d.value = x.d.value.map(rscale);
+        // console.log("VAL2",x.d.value)
+
 
         var df = HTMLWidgets.dataframeToD3(x.d);
 
+        var bubbleData = bubble.nodes({children: df, color: "transparent"});
+        console.log("bubbleData:\n",bubbleData)
         var node = svg.selectAll(".node")
-            .data(bubble.nodes({children: df, color: "transparent"}),
-          (!x.d || !x.d.key) ? null : function(d) { return d.key; });
+            .data(bubbleData);
+
+
+        // var bubbleDataR = bubbleData.map(function(d){return d.r});
+        // console.log("bubbleData:\n",bubbleDataR)
+        // var minSize = 30;
+        // var maxSize = 80;
+        // var rscale = d3.scale.linear()
+        // // .domain([d3.min(x.d.value), d3.max(x.d.value)])
+        // .domain([d3.min(bubbleDataR), d3.max(bubbleDataR)])
+        // .range([minSize, maxSize]);
+
+
 
         // Create new nodes, and set their starting state so they look
         // good when they transition to their new state
@@ -91,6 +129,13 @@ console.log("opts\n",opts)
             .text(function(d) {
                 return d.tooltip;
             });
+
+        // var minSize = 50;
+        // var maxSize = 1000;
+        // var rscale2 = d3.scale.linear()
+        //                 .domain([d3.min(bubbleData.shift(),function(d){return d.r}), 
+        //                 d3.max(bubbleData.shift(),function(d){return d.r})])
+        // .range([minSize, maxSize]);
 
         node.select("circle").transition()
             .attr("r", function(d) {
