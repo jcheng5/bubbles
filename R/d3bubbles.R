@@ -1,22 +1,34 @@
 
 #' @export
 d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
-                      colorCol = NULL,
+                      tooltipCol = NULL, colorCol = NULL, 
                       opts = NULL,
-                      tooltipCol = NULL, color = "#B7D1DF",
-                      textColor = "#99999", 
                       width = NULL, height = NULL) {
   
   labelCol <- labelCol %||% names(data)[1]
   valueCol <- valueCol %||% names(data)[2]
   
+  defaultOpts <-  list(
+    padding = 3,
+    textSplitWidth = 80,
+    palette = "Set1",
+    color = "#B7D1DF",
+    textColor = "#444444"
+  )
+  
+  settings <- mergeOptions(opts,defaultOpts)
+  
   if(!is.null(colorCol)){
     v <- data[,colorCol]
     if(class(v) %in% c("factor","string"))
-      color <- catColor(v,palette = opts$palette)
+      color <- catColor(v,palette = settings$palette)
     if(class(v) %in% c("numeric","integer"))
-      color <- numColor(v,palette = opts$palette)
+      color <- numColor(v,palette = settings$palette)
+  }else{
+    color <- settings$color
   }
+  
+  textColor <- settings$textColor
   
   d = data.frame(
     value = data[,valueCol],
@@ -25,17 +37,7 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
     color = color,
     textColor = textColor
   )
-  if (!is.null(key)) {
-    d <- cbind(d, data.frame(key = key))
-  }
-  
-  defaultOpts <-  list(
-    padding = 3,
-    textSplitWidth = 80,
-    palette = "Set1"
-  )
-  
-  settings <- mergeOptions(opts,defaultOpts)
+
   
   x <- list(
     d = d,
@@ -59,7 +61,7 @@ d3bubbles <- function(data, valueCol = NULL, labelCol = NULL,
 }
 
 #' @export
-d3bubblesOutput <- function(outputId, width = '600px', height = '600px'){
+d3bubblesOutput <- function(outputId, width = '100%', height = '500px'){
   shinyWidgetOutput(outputId, 'd3bubbles', width, height, package = 'd3bubbles')
 }
 
