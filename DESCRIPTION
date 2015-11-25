@@ -1,14 +1,13 @@
-Package: bubbles
+Package: d3bubbles
 Title: d3 Bubble Chart htmlwidget
 Version: 0.2
 Authors@R: c(person("Joe", "Cheng", role = c("cre", "aut"), email = "joe@rstudio.com"),
     person("Mike", "Bostock", role = "aut"),
-    person("Jeff", "Heer", role = "aut"))
+    person("Jeff", "Heer", role = "aut"),
+    person("Juan Pablo","Marín Díaz", role = "aut"))
 Description: htmlwidget package for d3 Bubble Chart as seen at
     http://bl.ocks.org/mbostock/4063269.
 Depends:
-    R (>= 3.0)
-Imports:
-    htmlwidgets
+    R (>= 3.0),htmlwidgets,leaflet
 License: file LICENSE
 LazyData: true
