@@ -14,3 +14,8 @@ Use the **devtools** package (`install.packages("devtools")`) to install this pa
 devtools::install_github("jpmarindiaz/d3bubbles")
 ```
 
+
+
+## Todos
+
+Add bubble sort option
