@@ -2,4 +2,6 @@ dependencies:
 - name: d3
   version: 3.5.3
   src: htmlwidgets/lib/d3
-  script: d3.js
+  script: d3.min.js
+
+
