@@ -8,14 +8,22 @@ HTMLWidgets.widget({
 
   initialize: function(el, width, height) {
 
+  
+		
+  
     var bubble = d3.layout.pack()
         .sort(null)
         .padding(1.5);
     
     var svg = d3.select(el).append("svg")
         .attr("class", "bubble");
+		
+	var tooltip = d3.select("body").append("div") 
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
         
     return {
+	  tooltip:tooltip,
       svg: svg,
       bubble: bubble
     }
@@ -29,11 +37,15 @@ HTMLWidgets.widget({
     // value
     instance.lastValue = x;
 
-    // Retrieve our svg and bubble objects that were created in
+	// Retrieve our svg and bubble objects that were created in
     // the initialize method above
-    var svg = instance.svg;
-    var bubble = instance.bubble;
     
+	
+    var bubble = instance.bubble;
+	var svg = instance.svg;
+	var tooltip = instance.tooltip;
+
+	
     // Resize our svg element and bubble layout according to the
     // size of the actual DOM element
     var width = el.offsetWidth;
@@ -57,13 +69,33 @@ HTMLWidgets.widget({
         .attr("transform", function(d) {
           return "translate(" + width/2 + "," + height/2 + ")";
         });
+	
+    // 	Add mouseover and mouseout events for html tooltip
+	newNode.on("mouseover", function(d) {
+		   tooltip.transition()
+		   .duration(200)
+		   .style("opacity",.9);
+		   tooltip .html( d.tooltip.replace(/\n/g,"<br>"))
+					.style('top', d3.event.pageY - 12 + 'px')
+                    .style('left', d3.event.pageX + 25 + 'px');
+             
+        });
+		
+    newNode.on("mouseout", function() {
+		  tooltip.transition()
+		  .duration(500)
+		  .style("opacity", 0);
+        });
 
-    newNode.append("title");
-    newNode.append("circle")
+
+	newNode.append("circle")
         .style("fill", "#FFFFFF");
-    newNode.append("text")
+   
+        
+	newNode.append("text")
         .attr("dy", ".3em")
         .style("text-anchor", "middle");
+
 
     // Remove old nodes
     node.exit().transition()
@@ -78,16 +110,15 @@ HTMLWidgets.widget({
           return "translate(" + d.x + "," + d.y + ")";
         });
 
-    node.select("title")
-        .text(function(d) { return d.tooltip; });
 
     node.select("circle").transition()
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) { return d.color; });
 
-    node.select("text")
-        .text(function(d) { return d.label; })
-        .style("fill", function(d) { return d.textColor; });
+   node.select("text")
+       .text(function(d) { return d.label; }) 
+	   .style("fill", function(d) { return d.textColor; }); 
+
   },
 
   resize: function(el, width, height, instance) {
