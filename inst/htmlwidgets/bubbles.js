@@ -4,7 +4,7 @@ HTMLWidgets.widget({
 
   type: 'output',
   
-  renderOnNullValue: true,
+  renderOnNullValue: false,
 
   initialize: function(el, width, height) {
 
