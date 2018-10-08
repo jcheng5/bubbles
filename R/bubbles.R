@@ -17,6 +17,8 @@
 #'   format; can be length 1 or length of \code{value}
 #' @param textColor Character vector of text color values, in \code{"#RRGGBB"}
 #'   format; can be length 1 or length of \code{value}
+#' @param textSize Character vector of text size values; can be length 1 or 
+#'   length of \code{value}
 #' @param width The width of the widget, or \code{NULL} for default.
 #' @param height The height of the widget, or \code{NULL} for default.
 #'   
@@ -31,7 +33,7 @@
 #'   
 #' @export
 bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
-  textColor = "#333333", width = NULL, height = NULL) {
+  textColor = "#333333", textSize = 8, width = NULL, height = NULL) {
 
   # forward options using x
   x = data.frame(
@@ -39,7 +41,8 @@ bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
     label = label,
     tooltip = tooltip,
     color = color,
-    textColor = textColor
+    textColor = textColor,
+    textSize = textSize
   )
   if (!is.null(key)) {
     x <- cbind(x, data.frame(key = key))

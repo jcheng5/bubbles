@@ -12,3 +12,4 @@ Imports:
     htmlwidgets
 License: MIT
 LazyData: true
+RoxygenNote: 6.1.0

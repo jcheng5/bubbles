@@ -87,7 +87,8 @@ HTMLWidgets.widget({
 
     node.select("text")
         .text(function(d) { return d.label; })
-        .style("fill", function(d) { return d.textColor; });
+        .style("fill", function(d) { return d.textColor; })
+        .style("font-size", function(d) { return d.textSize; });
   },
 
   resize: function(el, width, height, instance) {
