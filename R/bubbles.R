@@ -17,6 +17,8 @@
 #'   format; can be length 1 or length of \code{value}
 #' @param textColor Character vector of text color values, in \code{"#RRGGBB"}
 #'   format; can be length 1 or length of \code{value}
+#' @param textSize Character vector of text size values; can be length 1 or 
+#'   length of \code{value}
 #' @param width The width of the widget, or \code{NULL} for default.
 #' @param height The height of the widget, or \code{NULL} for default.
 #'   
