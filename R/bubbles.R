@@ -31,7 +31,7 @@
 #'   
 #' @export
 bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
-  textColor = "#333333", width = NULL, height = NULL) {
+  textColor = "#333333", textSize = 8, width = NULL, height = NULL) {
 
   # forward options using x
   x = data.frame(
@@ -39,7 +39,8 @@ bubbles <- function(value, label, key = NULL, tooltip = "", color = "#EEEEEE",
     label = label,
     tooltip = tooltip,
     color = color,
-    textColor = textColor
+    textColor = textColor,
+    textSize = textSize
   )
   if (!is.null(key)) {
     x <- cbind(x, data.frame(key = key))
